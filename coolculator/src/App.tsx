@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import {Decimal} from 'decimal.js';
+import { NumberButton } from './components/NumberButton';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
       <h1>Coolculator</h1> 
       {number}
+      <NumberButton buttonLabel={7} handleClick={() => console.log("Clicked!")} />
     </div>
   )
 }
