@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <h1>Coolculator</h1> 
       {number}
-      <NumberButton buttonLabel={7} handleClick={() => console.log("Clicked!")} />
+      <NumberButton buttonLabel={7} isPressed={true} />
     </div>
   )
 }
