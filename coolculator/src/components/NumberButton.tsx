@@ -1,12 +1,15 @@
-type NumButtonProps = {
-    buttonLabel: number
-    isPressed: boolean
+type NumberButtonProps = {
+    buttonLabel: string,
+    handleNumberClick: (event: React.MouseEvent<HTMLDivElement>) => void
 }
 
-export const NumberButton : React.FC<NumButtonProps> = ({buttonLabel, isPressed}: NumButtonProps) => {
+export const NumberButton : React.FC<NumberButtonProps>= (props: NumberButtonProps)=> {
+
+  const { handleNumberClick, buttonLabel } = props;
+
   return (
-    <div>
-      {buttonLabel.toString()}
+    <div onClick={handleNumberClick}>
+      {buttonLabel}
     </div>
   )
 }
