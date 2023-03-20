@@ -1,11 +1,15 @@
 type CalcButtonProps = {
-    buttonLabel: number | string
-  }
+  buttonLabel: string,
+  handleCalcClick: (event: React.MouseEvent<HTMLDivElement>) => void
+}
 
-export const NumberButton : React.FC<CalcButtonProps> = ({buttonLabel }: CalcButtonProps) => {
-  return (
-    <div>
-      {buttonLabel.toString()}
-    </div>
-  )
+export const CalcButton : React.FC<CalcButtonProps>= (props: CalcButtonProps)=> {
+
+const { handleCalcClick, buttonLabel } = props;
+
+return (
+  <div onClick={handleCalcClick}>
+    {buttonLabel}
+  </div>
+)
 }

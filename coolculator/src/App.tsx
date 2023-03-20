@@ -3,11 +3,19 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import {Decimal} from 'decimal.js';
 import { NumberButton } from './components/NumberButton';
+import { CalcButton } from './components/CalcButton';
 
 function App() {
 
   const handleNumberClick = (digit: string):void => {
-    alert(`You clicked ${digit}!`)
+    // alert(`You clicked ${digit}!`)
+    if(displayNumber === '0'){
+      if(digit !== '0'){
+        setDisplayNumber(digit)
+      }
+    } else {
+      setDisplayNumber(displayNumber + digit)
+    }
   }
   //   /*
 
@@ -29,7 +37,12 @@ function App() {
 
   // }
 
-  // const handleDecimalClick = (): void => { }
+  const handleDecimalClick = (): void => {
+    if(!displayNumber.includes(".")) {
+      setDisplayNumber(displayNumber + ".")
+    }
+
+   }
 
   const [displayNumber, setDisplayNumber] = useState<string>("0");
   const [firstNumber, setFirstNumber] = useState<string>("0");
@@ -53,6 +66,7 @@ function App() {
         <NumberButton buttonLabel={"8"} handleNumberClick={(e) => handleNumberClick("8")} />
         <NumberButton buttonLabel={"9"} handleNumberClick={(e) => handleNumberClick("9")} />
         <NumberButton buttonLabel={"0"} handleNumberClick={(e) => handleNumberClick("0")} />
+        <CalcButton buttonLabel={"."} handleCalcClick={handleDecimalClick} />
       </div>
 
     </div>
