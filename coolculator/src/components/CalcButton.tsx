@@ -5,11 +5,11 @@ type CalcButtonProps = {
 
 export const CalcButton : React.FC<CalcButtonProps>= (props: CalcButtonProps)=> {
 
-const { handleCalcClick, buttonLabel } = props;
+  const { handleCalcClick, buttonLabel } = props;
 
-return (
-  <div onClick={handleCalcClick}>
-    {buttonLabel}
-  </div>
-)
+  return (
+    <div onClick={handleCalcClick}>
+      {buttonLabel}
+    </div>
+    )
 }
