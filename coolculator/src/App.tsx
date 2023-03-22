@@ -10,6 +10,31 @@ type BinaryOp = "+" | "-" | "*" | "/" | "";
 
 function App() {
 
+  const doCalculation = ():string => {
+    if(activeOperation === "") {
+      return "";
+    }
+    let x : Decimal = new Decimal(firstNumber);
+    let y : Decimal = new Decimal(displayNumber);
+    let answer: Decimal;
+    switch(activeOperation) {
+      case "+":
+        answer = x.add(y);
+        break;
+      case "-":
+        answer = x.minus(y);
+        break;
+      case "*":
+        answer = x.times(y);
+        break;
+      case "/":
+        answer = x.div(y);
+        break;
+    }
+    return answer.toString();
+  // console.log(x.add(y).toString())
+  }
+
   const handleNumberClick = (digit: string):void => {
     // alert(`You clicked ${digit}!`)
     if(displayNumber === '0'){
@@ -32,9 +57,14 @@ function App() {
 
   // }
 
-  // const handleEqualsClick = (): void => { // calculates binary operations
+  const handleEqualsClick = (): void => { // calculates binary operations
+    setSecondNumber(displayNumber);
+    let answer:string = doCalculation();
+    setActiveOperation("");
+    setDisplayNumber(answer);
+    setOnFirstNumber(true);
 
-  // }
+  }
 
   const handleDecimalClick = (): void => {
     if(!displayNumber.includes(".")) {
@@ -72,9 +102,6 @@ function App() {
   const [firstNumber, setFirstNumber] = useState<string>("0");
   const [secondNumber, setSecondNumber] = useState<string>("");
   const [activeOperation, setActiveOperation] = useState<BinaryOp>("");
-  // let x : Decimal = new Decimal(0.1)
-  // let y : Decimal = new Decimal(0.2);
-  // console.log(x.add(y).toString())
 
   return (
     <div className="App">
@@ -99,6 +126,7 @@ function App() {
         <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"\u00F7"} handleOperationClick={(e) => handleOperationClick("/")} />
         <CalcButton buttonLabel={"\u232B"} handleCalcClick={handleBackSpaceClick} />
         <CalcButton buttonLabel={"Reset"} handleCalcClick={() => window.location.reload()} />
+        <CalcButton buttonLabel={"="} handleCalcClick={handleEqualsClick} />
       </div>
 
     </div>
