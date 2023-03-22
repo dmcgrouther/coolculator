@@ -84,19 +84,19 @@ function App() {
         <NumberButton buttonLabel={"1"} handleNumberClick={(e) => handleNumberClick("1")} />
         <NumberButton buttonLabel={"2"} handleNumberClick={(e) => handleNumberClick("2")} />
         <NumberButton buttonLabel={"3"} handleNumberClick={(e) => handleNumberClick("3")} />
-        <OperationButton buttonLabel={"+"} handleOperationClick={(e) => handleOperationClick("+")} />
+        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"+"} handleOperationClick={(e) => handleOperationClick("+")} />
         <NumberButton buttonLabel={"4"} handleNumberClick={(e) => handleNumberClick("4")} />
         <NumberButton buttonLabel={"5"} handleNumberClick={(e) => handleNumberClick("5")} />
         <NumberButton buttonLabel={"6"} handleNumberClick={(e) => handleNumberClick("6")} />
-        <OperationButton buttonLabel={"-"} handleOperationClick={(e) => handleOperationClick("-")} />
+        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"-"} handleOperationClick={(e) => handleOperationClick("-")} />
         <NumberButton buttonLabel={"7"} handleNumberClick={(e) => handleNumberClick("7")} />
         <NumberButton buttonLabel={"8"} handleNumberClick={(e) => handleNumberClick("8")} />
         <NumberButton buttonLabel={"9"} handleNumberClick={(e) => handleNumberClick("9")} />
-        <OperationButton buttonLabel={"\u00D7"} handleOperationClick={(e) => handleOperationClick("*") }/>
+        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"\u00D7"} handleOperationClick={(e) => handleOperationClick("*") }/>
         <NumberButton buttonLabel={"0"} handleNumberClick={(e) => handleNumberClick("0")} />
         <CalcButton buttonLabel={"."} handleCalcClick={handleDecimalClick} />
         <CalcButton buttonLabel={"+/-"} handleCalcClick={handleSignClick} />
-        <OperationButton buttonLabel={"\u00F7"} handleOperationClick={(e) => handleOperationClick("/")} />
+        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"\u00F7"} handleOperationClick={(e) => handleOperationClick("/")} />
         <CalcButton buttonLabel={"\u232B"} handleCalcClick={handleBackSpaceClick} />
         <CalcButton buttonLabel={"Reset"} handleCalcClick={() => window.location.reload()} />
       </div>
