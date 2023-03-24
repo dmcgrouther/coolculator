@@ -1,3 +1,5 @@
+import './buttons.css'
+
 type OperationButtonProps = {
     buttonLabel: string,
     isOperationActive: boolean,
@@ -9,7 +11,7 @@ type OperationButtonProps = {
     const { handleOperationClick, buttonLabel, isOperationActive } = props;
   
     return (
-      <div onClick={handleOperationClick} style={{"visibility" : isOperationActive ? "hidden" : "visible" }}>
+      <div onClick={handleOperationClick} style={{"visibility" : isOperationActive ? "hidden" : "visible" }} className="gen-button op-button">
         {buttonLabel}
       </div>
       )

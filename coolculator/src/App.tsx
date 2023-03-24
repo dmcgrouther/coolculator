@@ -28,7 +28,14 @@ function App() {
         answer = x.times(y);
         break;
       case "/":
-        answer = x.div(y);
+        if(y.toString() === "0") {
+          alert("You can't divide by zero!!!");
+          window.location.reload();
+          return "";
+        } else {
+          answer = x.div(y);
+        }
+
         break;
     }
     return answer.toString();
@@ -58,12 +65,13 @@ function App() {
   // }
 
   const handleEqualsClick = (): void => { // calculates binary operations
-    setSecondNumber(displayNumber);
-    let answer:string = doCalculation();
-    setActiveOperation("");
-    setDisplayNumber(answer);
-    setOnFirstNumber(true);
-
+    if(!onFirstNumber) {
+      setSecondNumber(displayNumber);
+      let answer:string = doCalculation();
+      setActiveOperation("");
+      setDisplayNumber(answer);
+      setOnFirstNumber(true);
+    }
   }
 
   const handleDecimalClick = (): void => {
@@ -97,6 +105,11 @@ function App() {
     }
   }
 
+  const handleSquareRoot = (): void => {
+    let x : Decimal = new Decimal(displayNumber).sqrt();
+    setDisplayNumber(x.toString())
+  }
+
   const [displayNumber, setDisplayNumber] = useState<string>("0");
   const [onFirstNumber, setOnFirstNumber] = useState<boolean>(true); // isn't this just !activeOperation ?
   const [firstNumber, setFirstNumber] = useState<string>("0");
@@ -105,30 +118,34 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Coolculator</h1> 
-      <h2>{displayNumber}</h2>
-      <div className="numpad">
-        <NumberButton buttonLabel={"1"} handleNumberClick={(e) => handleNumberClick("1")} />
-        <NumberButton buttonLabel={"2"} handleNumberClick={(e) => handleNumberClick("2")} />
-        <NumberButton buttonLabel={"3"} handleNumberClick={(e) => handleNumberClick("3")} />
-        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"+"} handleOperationClick={(e) => handleOperationClick("+")} />
-        <NumberButton buttonLabel={"4"} handleNumberClick={(e) => handleNumberClick("4")} />
-        <NumberButton buttonLabel={"5"} handleNumberClick={(e) => handleNumberClick("5")} />
-        <NumberButton buttonLabel={"6"} handleNumberClick={(e) => handleNumberClick("6")} />
-        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"-"} handleOperationClick={(e) => handleOperationClick("-")} />
-        <NumberButton buttonLabel={"7"} handleNumberClick={(e) => handleNumberClick("7")} />
-        <NumberButton buttonLabel={"8"} handleNumberClick={(e) => handleNumberClick("8")} />
-        <NumberButton buttonLabel={"9"} handleNumberClick={(e) => handleNumberClick("9")} />
-        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"\u00D7"} handleOperationClick={(e) => handleOperationClick("*") }/>
-        <NumberButton buttonLabel={"0"} handleNumberClick={(e) => handleNumberClick("0")} />
-        <CalcButton buttonLabel={"."} handleCalcClick={handleDecimalClick} />
-        <CalcButton buttonLabel={"+/-"} handleCalcClick={handleSignClick} />
-        <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"\u00F7"} handleOperationClick={(e) => handleOperationClick("/")} />
-        <CalcButton buttonLabel={"\u232B"} handleCalcClick={handleBackSpaceClick} />
-        <CalcButton buttonLabel={"Reset"} handleCalcClick={() => window.location.reload()} />
-        <CalcButton buttonLabel={"="} handleCalcClick={handleEqualsClick} />
-      </div>
+      <div className="main-frame">
+        <h1 className="cool-title">Coolculator</h1> 
+        <h2 className="display-window">{displayNumber}</h2>
+        <div className="numpad">
+          <NumberButton buttonLabel={"1"} handleNumberClick={(e) => handleNumberClick("1")} />
+          <NumberButton buttonLabel={"2"} handleNumberClick={(e) => handleNumberClick("2")} />
+          <NumberButton buttonLabel={"3"} handleNumberClick={(e) => handleNumberClick("3")} />
+          <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"+"} handleOperationClick={(e) => handleOperationClick("+")} />
+          <NumberButton buttonLabel={"4"} handleNumberClick={(e) => handleNumberClick("4")} />
+          <NumberButton buttonLabel={"5"} handleNumberClick={(e) => handleNumberClick("5")} />
+          <NumberButton buttonLabel={"6"} handleNumberClick={(e) => handleNumberClick("6")} />
+          <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"-"} handleOperationClick={(e) => handleOperationClick("-")} />
+          <NumberButton buttonLabel={"7"} handleNumberClick={(e) => handleNumberClick("7")} />
+          <NumberButton buttonLabel={"8"} handleNumberClick={(e) => handleNumberClick("8")} />
+          <NumberButton buttonLabel={"9"} handleNumberClick={(e) => handleNumberClick("9")} />
+          <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"\u00D7"} handleOperationClick={(e) => handleOperationClick("*") }/>
+          <NumberButton buttonLabel={"0"} handleNumberClick={(e) => handleNumberClick("0")} />
+          <CalcButton buttonLabel={"."} handleCalcClick={handleDecimalClick} />
+          <CalcButton buttonLabel={"+/-"} handleCalcClick={handleSignClick} />
+          <OperationButton isOperationActive={activeOperation.length !== 0} buttonLabel={"\u00F7"} handleOperationClick={(e) => handleOperationClick("/")} />
+          <CalcButton buttonLabel={"\u232B"} handleCalcClick={handleBackSpaceClick} />
+          <CalcButton buttonLabel={"Reset"} handleCalcClick={() => window.location.reload()} />
+          <CalcButton buttonLabel={"="} handleCalcClick={handleEqualsClick} />
+          <CalcButton buttonLabel={"sqrt"} handleCalcClick={handleSquareRoot} />
+        </div>
 
+      </div>
+      
     </div>
   )
 }

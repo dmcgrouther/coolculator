@@ -8,7 +8,7 @@ export const NumberButton : React.FC<NumberButtonProps>= (props: NumberButtonPro
   const { handleNumberClick, buttonLabel } = props;
 
   return (
-    <div onClick={handleNumberClick}>
+    <div onClick={handleNumberClick} className="gen-button num-button">
       {buttonLabel}
     </div>
   )

@@ -8,7 +8,7 @@ export const CalcButton : React.FC<CalcButtonProps>= (props: CalcButtonProps)=> 
   const { handleCalcClick, buttonLabel } = props;
 
   return (
-    <div onClick={handleCalcClick}>
+    <div onClick={handleCalcClick} className="gen-button calc-button">
       {buttonLabel}
     </div>
     )
