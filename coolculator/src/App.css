@@ -1,0 +1,21 @@
+.cool-title {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.display-window {
+    --window-size: 20px;
+    width: 100%;
+    border-style: solid;
+    border-color: #04AA6D;
+    background-color: white;
+    font-size: var(--window-size);
+    padding-top: var(--window-size);
+    padding-bottom: var(--window-size);
+    padding-left: calc(var(--window-size) / 2);
+    padding-right: calc(var(--window-size) / 2);
+    box-sizing:border-box;
+    margin-bottom: 10px;
+
+
+}

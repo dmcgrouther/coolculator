@@ -1,3 +1,32 @@
+
+
+html, body {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+    --round-width: 16px;
+}
+
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.main-frame {
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+    border-radius: var(--round-width);
+    background-color: beige;
+    width: 350px;
+    height: 500px;
+    padding: var(--round-width);
+    
+}
+
 .numpad {
     display: grid;
     grid-template-columns: auto auto auto auto;
