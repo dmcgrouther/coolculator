@@ -44,6 +44,11 @@ const initialState : AppState = {
 type Action =
 | {type: ActionType.NUMBER, digit: string}
 | {type: ActionType.EQUALS }
+| {type: ActionType.DECIMAL }
+| {type: ActionType.SIGN }
+| {type: ActionType.OPERATION, operation: BinaryOp}
+| {type: ActionType.BACKSPACE }
+| {type: ActionType.SQUAREROOT }
 
 
 function calcReducer(state: AppState, action: Action):AppState {
@@ -90,15 +95,40 @@ function calcReducer(state: AppState, action: Action):AppState {
       } else {
         return {...state, displayNumber: state.displayNumber + digit }
       }
+      break;
     case ActionType.EQUALS:
       if(!state.onFirstNumber) {
         let answer:string = doCalculation();
         return {...state, activeOperation: "", displayNumber: answer, onFirstNumber: true }
       }
-      
+      break;
+    case ActionType.DECIMAL:
+      if(!state.displayNumber.includes(".")) {
+        return {...state, displayNumber: state.displayNumber + "." };
+      }
+      break;
+    case ActionType.SIGN:
+      if(state.displayNumber[0] === "-") {
+        return {...state, displayNumber: state.displayNumber.slice(1) };
+      } else {
+        return {...state, displayNumber: "-" + state.displayNumber };
+      }
+    case ActionType.OPERATION:
+      return {...state, activeOperation: action.operation, firstNumber: state.displayNumber, displayNumber: "0", onFirstNumber: false };
+    case ActionType.BACKSPACE:
+      if(state.displayNumber.length > 1) {
+        return {...state, displayNumber: state.displayNumber.slice(0, -1)};
+      } else {
+        return {...state, displayNumber: "0" };
+      }
+    case ActionType.SQUAREROOT:
+      let x : Decimal = new Decimal(state.displayNumber).sqrt();
+      return {...state, displayNumber: x.toString()}
     default:
       return state;
   }
+
+  return state;
 
 }
 
@@ -133,39 +163,45 @@ function App() {
   }
 
   const handleDecimalClick = (): void => {
-    if(!displayNumber.includes(".")) {
-      setDisplayNumber(displayNumber + ".")
-    }
+    // if(!displayNumber.includes(".")) {
+    //   setDisplayNumber(displayNumber + ".")
+    // }
+    dispatch({type: ActionType.DECIMAL})
 
   }
   
   const handleSignClick = (): void => {
-    if(displayNumber[0] === "-") {
-      setDisplayNumber(displayNumber.slice(1));
-    } else {
-      setDisplayNumber("-" + displayNumber);
-    }
+    // if(displayNumber[0] === "-") {
+    //   setDisplayNumber(displayNumber.slice(1));
+    // } else {
+    //   setDisplayNumber("-" + displayNumber);
+    // }
+
+    dispatch({type: ActionType.SIGN})
 
   }
 
   const handleOperationClick = (operation: BinaryOp): void => {
-    setActiveOperation(operation)
-    setFirstNumber(displayNumber)
-    setDisplayNumber("0")
-    setOnFirstNumber(false)
+    // setActiveOperation(operation)
+    // setFirstNumber(displayNumber)
+    // setDisplayNumber("0")
+    // setOnFirstNumber(false)
+    dispatch({type: ActionType.OPERATION, operation})
   }
 
   const handleBackSpaceClick = (): void => {
-    if(displayNumber.length > 1) {
-      setDisplayNumber(displayNumber.slice(0, -1));
-    } else {
-      setDisplayNumber("0");
-    }
+    // if(displayNumber.length > 1) {
+    //   setDisplayNumber(displayNumber.slice(0, -1));
+    // } else {
+    //   setDisplayNumber("0");
+    // }
+    dispatch({type: ActionType.BACKSPACE});
   }
 
   const handleSquareRoot = (): void => {
-    let x : Decimal = new Decimal(displayNumber).sqrt();
-    setDisplayNumber(x.toString())
+    // let x : Decimal = new Decimal(displayNumber).sqrt();
+    // setDisplayNumber(x.toString())
+    dispatch({type: ActionType.SQUAREROOT})
   }
 
   // const [displayNumber, setDisplayNumber] = useState<string>("0");
