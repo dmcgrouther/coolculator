@@ -8,15 +8,6 @@ import { OperationButton } from './components/OperationButton'
 
 type BinaryOp = "+" | "-" | "*" | "/" | "";
 
-
-
-/*
-  const [displayNumber, setDisplayNumber] = useState<string>("0");
-  const [onFirstNumber, setOnFirstNumber] = useState<boolean>(true); // isn't this just !activeOperation ?
-  const [firstNumber, setFirstNumber] = useState<string>("0");
-  const [activeOperation, setActiveOperation] = useState<BinaryOp>("");
-*/
-
 enum ActionType {
   NUMBER,
   EQUALS,
@@ -137,15 +128,6 @@ function App() {
   const [state, dispatch] = useReducer(calcReducer, initialState);
 
   const handleNumberClick = (digit: string):void => {
-    // alert(`You clicked ${digit}!`)
-    // if(displayNumber === '0'){
-    //   if(digit !== '0'){
-    //     setDisplayNumber(digit)
-    //   }
-    // } else {
-    //   setDisplayNumber(displayNumber + digit)
-    // }
-
     dispatch({
       type: ActionType.NUMBER,
       digit
@@ -153,62 +135,30 @@ function App() {
   }
 
   const handleEqualsClick = (): void => { // calculates binary operations
-    // if(!onFirstNumber) {
-    //   let answer:string = doCalculation();
-    //   setActiveOperation("");
-    //   setDisplayNumber(answer);
-    //   setOnFirstNumber(true);
-    // }
     dispatch({type: ActionType.EQUALS});
   }
 
   const handleDecimalClick = (): void => {
-    // if(!displayNumber.includes(".")) {
-    //   setDisplayNumber(displayNumber + ".")
-    // }
     dispatch({type: ActionType.DECIMAL})
 
   }
   
   const handleSignClick = (): void => {
-    // if(displayNumber[0] === "-") {
-    //   setDisplayNumber(displayNumber.slice(1));
-    // } else {
-    //   setDisplayNumber("-" + displayNumber);
-    // }
-
     dispatch({type: ActionType.SIGN})
 
   }
 
   const handleOperationClick = (operation: BinaryOp): void => {
-    // setActiveOperation(operation)
-    // setFirstNumber(displayNumber)
-    // setDisplayNumber("0")
-    // setOnFirstNumber(false)
     dispatch({type: ActionType.OPERATION, operation})
   }
 
   const handleBackSpaceClick = (): void => {
-    // if(displayNumber.length > 1) {
-    //   setDisplayNumber(displayNumber.slice(0, -1));
-    // } else {
-    //   setDisplayNumber("0");
-    // }
     dispatch({type: ActionType.BACKSPACE});
   }
 
   const handleSquareRoot = (): void => {
-    // let x : Decimal = new Decimal(displayNumber).sqrt();
-    // setDisplayNumber(x.toString())
     dispatch({type: ActionType.SQUAREROOT})
   }
-
-  // const [displayNumber, setDisplayNumber] = useState<string>("0");
-  // const [onFirstNumber, setOnFirstNumber] = useState<boolean>(true); // isn't this just !activeOperation ?
-  // const [firstNumber, setFirstNumber] = useState<string>("0");
-  // const [activeOperation, setActiveOperation] = useState<BinaryOp>("");
-
   return (
     <div className="App">
       <div className="main-frame">
