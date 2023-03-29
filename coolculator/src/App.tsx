@@ -22,14 +22,16 @@ interface AppState {
   displayNumber: string,
   onFirstNumber: boolean,
   firstNumber: string,
-  activeOperation: BinaryOp
+  activeOperation: BinaryOp,
+  virginState: boolean
 }
 
 const initialState : AppState = {
   displayNumber: "0",
   onFirstNumber: true,
   firstNumber: "0",
-  activeOperation: ""
+  activeOperation: "",
+  virginState: true
 }
 
 type Action =
@@ -79,21 +81,24 @@ function calcReducer(state: AppState, action: Action):AppState {
   switch(action.type) {
     case ActionType.NUMBER:
       const digit = action.digit;
-      if(state.displayNumber === '0'){
+      if(state.virginState) {
         if(digit !== '0'){
-          return {...state, displayNumber: digit }
+          return {...state, displayNumber: digit, virginState: false}
         }
+        return {...state, displayNumber: digit }
       } else {
         return {...state, displayNumber: state.displayNumber + digit }
       }
-      break;
     case ActionType.EQUALS:
       if(!state.onFirstNumber) {
         let answer:string = doCalculation();
-        return {...state, activeOperation: "", displayNumber: answer, onFirstNumber: true }
+        return {...state, activeOperation: "", displayNumber: answer, onFirstNumber: true, virginState: true }
       }
       break;
     case ActionType.DECIMAL:
+      if(state.virginState) {
+        return {...state, displayNumber: "0.", virginState: false }
+      }
       if(!state.displayNumber.includes(".")) {
         return {...state, displayNumber: state.displayNumber + "." };
       }
@@ -105,8 +110,11 @@ function calcReducer(state: AppState, action: Action):AppState {
         return {...state, displayNumber: "-" + state.displayNumber };
       }
     case ActionType.OPERATION:
-      return {...state, activeOperation: action.operation, firstNumber: state.displayNumber, displayNumber: "0", onFirstNumber: false };
+      return {...state, activeOperation: action.operation, firstNumber: state.displayNumber, onFirstNumber: false, virginState: true };
     case ActionType.BACKSPACE:
+      if(state.virginState) {
+        return {...state, displayNumber: "0"}
+      }
       if(state.displayNumber.length > 1) {
         return {...state, displayNumber: state.displayNumber.slice(0, -1)};
       } else {
@@ -114,7 +122,7 @@ function calcReducer(state: AppState, action: Action):AppState {
       }
     case ActionType.SQUAREROOT:
       let x : Decimal = new Decimal(state.displayNumber).sqrt();
-      return {...state, displayNumber: x.toString()}
+      return {...state, displayNumber: x.toString(), virginState: true}
     default:
       return state;
   }
